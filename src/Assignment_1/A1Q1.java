@@ -1,6 +1,5 @@
 package Assignment_1;
 
-
 import becker.robots.City;
 import becker.robots.Direction;
 import becker.robots.Robot;
@@ -9,7 +8,7 @@ import java.awt.Color;
 
 
 /**
- *
+ * have alec walk around the outside of the walls
  * @author tarra7926
  */
 public class A1Q1 {
@@ -24,7 +23,7 @@ public class A1Q1 {
          Robot alec = new Robot(flavourtown, 0, 2, Direction.WEST);
          
          // change alecs's colour to black
-        alec.setColor(Color.black);
+         alec.setColor(Color.black);
          
          // create walls
          new Wall(flavourtown, 1, 1, Direction.NORTH);

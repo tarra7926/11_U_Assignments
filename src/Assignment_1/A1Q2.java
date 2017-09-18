@@ -8,15 +8,84 @@ import becker.robots.Thing;
 import java.awt.Color;
 
 /**
- *
+ * Have alec walk out of bed, pick up newspaper, and return to bed
  * @author tarra7926
  */
 public class A1Q2 {
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String[] args) {
-        // TODO code application logic here
+       City flavourtown = new City();
+         
+       //create Robot
+       Robot alec = new Robot(flavourtown, 1, 2, Direction.SOUTH);
+       
+       //create thing
+       new Thing(flavourtown, 2, 2);
+         
+       // change alecs's and thing's colour to black
+       alec.setColor(Color.black);
+       
+       
+       // create walls
+       new Wall(flavourtown, 1, 1, Direction.NORTH);
+       new Wall(flavourtown, 1, 2, Direction.NORTH);
+       new Wall(flavourtown, 2, 2, Direction.NORTH);
+       new Wall(flavourtown, 1, 1, Direction.WEST);
+       new Wall(flavourtown, 2, 1, Direction.WEST);
+       new Wall(flavourtown, 2, 1, Direction.SOUTH);
+       new Wall(flavourtown, 1, 2, Direction.EAST);
+       
+       // have alec turn
+       alec.turnLeft();
+       alec.turnLeft();
+       alec.turnLeft();
+         
+       // get alec to move
+       alec.move();
+         
+       // have alec turn
+       alec.turnLeft(); 
+       
+       // get alec to move
+       alec.move();
+         
+       // have alec turn
+       alec.turnLeft();
+       
+       // get alec to move
+       alec.move();
+         
+       // alec picks up thing
+       alec.pickThing();
+       
+       // have alec turn
+       alec.turnLeft();
+       alec.turnLeft();
+       
+       // get alec to move
+       alec.move();
+         
+       // have alec turn
+       alec.turnLeft();
+       alec.turnLeft();
+       alec.turnLeft();
+       
+       // get alec to move
+       alec.move();
+       
+       // have alec turn
+       alec.turnLeft();
+       alec.turnLeft();
+       alec.turnLeft();
+       
+       // get alec to move
+       alec.move();
+       
+       // have alec turn
+       alec.turnLeft();
+       alec.turnLeft();
+       alec.turnLeft();
+        
     }
 }
