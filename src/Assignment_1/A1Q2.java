@@ -17,15 +17,13 @@ public class A1Q2 {
     public static void main(String[] args) {
         City flavourtown = new City();
 
-        //create Robot
+        //create a robot and a thing
         Robot alec = new Robot(flavourtown, 1, 2, Direction.SOUTH);
-
-        //create thing
-        Thing t = new Thing(flavourtown, 2, 2);
+        Thing a = new Thing(flavourtown, 2, 2);
 
         // change alecs's and thing's colour to black
         alec.setColor(Color.black);
-        t.setColor(Color.black);
+        a.setColor(Color.black);
 
         // create walls
         new Wall(flavourtown, 1, 1, Direction.NORTH);
