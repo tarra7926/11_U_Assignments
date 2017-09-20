@@ -8,7 +8,7 @@ import becker.robots.Wall;
 import java.awt.Color;
 
 /**
- *
+ *The Robots will pick up things and meet in the middle
  * @author tarra7926
  */
 public class A1Q5 {
@@ -31,8 +31,8 @@ public class A1Q5 {
         Thing e = new Thing(flavourtown, 2, 2);
 
         // change alecs's, guyfieri's, and the Thing's colour to black
-        alec.setColor(Color.black);
-        guyfieri.setColor(Color.black);
+        alec.setColor(Color.red);
+        guyfieri.setColor(Color.red);
         a.setColor(Color.black);
         b.setColor(Color.black);
         c.setColor(Color.black);
@@ -40,8 +40,8 @@ public class A1Q5 {
         e.setColor(Color.black);
 
         //give guyfieri and alec labels
-        alec.setLabel(" A ");
-        guyfieri.setLabel(" G ");
+        alec.setLabel("A");
+        guyfieri.setLabel("G");
 
         //create walls
         new Wall(flavourtown, 2, 3, Direction.EAST);
