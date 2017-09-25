@@ -23,7 +23,7 @@ public class A1Q5 {
         Robot alec = new Robot(flavourtown, 0, 1, Direction.WEST);
         Robot guyfieri = new Robot(flavourtown, 3, 3, Direction.EAST);
 
-        //creat things
+        //create things
         Thing a = new Thing(flavourtown, 0, 0);
         Thing b = new Thing(flavourtown, 1, 0);
         Thing c = new Thing(flavourtown, 1, 1);

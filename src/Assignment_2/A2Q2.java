@@ -42,24 +42,25 @@ public class A2Q2 {
 
 
         while (true) {
-            if(alec.canPickThing()) {
+            
+            if (alec.canPickThing()) {
                 alec.pickThing();
                 alec.turnLeft();
                 break;
-                } else {
-            
-            while (!(alec.frontIsClear())) {
+                
+            } else {
+                
+                while (!(alec.frontIsClear())) {
+                    alec.turnLeft();
+
+                }
+
+                alec.move();
+                alec.turnLeft();
+                alec.turnLeft();
                 alec.turnLeft();
 
-
             }
-
-            alec.move();
-            alec.turnLeft();
-            alec.turnLeft();
-            alec.turnLeft();
-            
         }
     }
-}
 }
