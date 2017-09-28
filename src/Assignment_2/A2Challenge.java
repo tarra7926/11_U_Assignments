@@ -121,10 +121,6 @@ public class A2Challenge {
                 break;
 
             }
-
-            //turn robot away from the wall
-            alec.turnLeft();
-
         }
     }
 }
