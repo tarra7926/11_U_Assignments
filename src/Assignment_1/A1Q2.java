@@ -8,7 +8,7 @@ import becker.robots.Thing;
 import java.awt.Color;
 
 /**
- * Have alec walk out of bed, pick up newspaper, and return to bed
+ * have alec walk out of bed, pick up newspaper, and return to bed
  *
  * @author tarra7926
  */

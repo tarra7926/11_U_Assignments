@@ -7,6 +7,7 @@ import becker.robots.Thing;
 import becker.robots.Wall;
 
 /**
+ * have alec complete any obstacle course
  *
  * @author tarra7926
  */
@@ -40,27 +41,25 @@ public class A2Q2 {
         new Wall(flavourtown, 2, 8, Direction.SOUTH);
 
 
+        //while alec can not pick up a thing do the following
+        while (!(alec.canPickThing())) {
 
-        while (true) {
-            
-            if (alec.canPickThing()) {
-                alec.pickThing();
-                alec.turnLeft();
-                break;
-                
-            } else {
-                
-                while (!(alec.frontIsClear())) {
-                    alec.turnLeft();
 
-                }
-
-                alec.move();
-                alec.turnLeft();
-                alec.turnLeft();
+            //while alec's front is not clear turn left
+            while (!(alec.frontIsClear())) {
                 alec.turnLeft();
 
             }
+            //have alec move than turn right
+            alec.move();
+            alec.turnLeft();
+            alec.turnLeft();
+            alec.turnLeft();
+
+
         }
+        //have alec pick up a thing and turn left
+        alec.pickThing();
+        alec.turnLeft();
     }
 }

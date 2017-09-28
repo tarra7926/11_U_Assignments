@@ -6,7 +6,7 @@ import becker.robots.Robot;
 import becker.robots.Thing;
 
 /**
- * Have the robot pickup exactly 7 things and get to avenue 11
+ * have alec pickup exactly 7 things and get to avenue 11
  *
  * @author tarra7926
  */
@@ -33,14 +33,13 @@ public class A2Q1 {
         Thing i = new Thing(flavourtown, 1, 10);
         Thing j = new Thing(flavourtown, 1, 11);
 
-        //have alec keep walking forward until he has 7 things
+        //have alec keep walking forward until he has picked up 7 things
         while (alec.countThingsInBackpack() != 7) {
             alec.move();
             alec.pickThing();
-
         }
 
-        //have alec move to street 0 avenue 11 if he has 7 things in his
+        //have alec move to street 0 avenue 11 if he has 7 things in his backpack
         while (alec.getAvenue() != 12) {
             alec.move();
         }

@@ -3,11 +3,10 @@ package Assignment_2;
 import becker.robots.City;
 import becker.robots.Direction;
 import becker.robots.Robot;
-import becker.robots.Thing;
 import becker.robots.Wall;
 
 /**
- *
+ * have alec patrol the walls
  * @author tarra7926
  */
 public class A2Q4 {
@@ -15,10 +14,7 @@ public class A2Q4 {
         City flavourtown = new City();
 
         //create a Robot
-        Robot alec = new Robot(flavourtown, 2, 0, Direction.EAST);
-
-        //creat thing
-        new Thing(flavourtown, 2, 8);
+        Robot alec = new Robot(flavourtown, 1, 2, Direction.EAST);
 
         //create walls
         new Wall(flavourtown, 1, 1, Direction.NORTH);
@@ -44,25 +40,28 @@ public class A2Q4 {
         new Wall(flavourtown, 1, 4, Direction.SOUTH);
         new Wall(flavourtown, 4, 4, Direction.SOUTH);
         new Wall(flavourtown, 3, 2, Direction.SOUTH);
-        new Wall(flavourtown, 3, , Direction.SOUTH);
+        new Wall(flavourtown, 3, 3, Direction.SOUTH);
         
 
-
-
-        while (true) {
-            
-            if (!(alec.frontIsClear())) {
-                alec.turnLeft();
+        
+        
+            //loop the following forever
+            while (true) {
                 
-            } else {
+                //while alec's front is not clear turn left
+                while (!(alec.frontIsClear())) {
+                    alec.turnLeft();
 
+                }
+
+                //have alec move than turn right
                 alec.move();
                 alec.turnLeft();
                 alec.turnLeft();
                 alec.turnLeft();
 
-            }
+            
         }
     }
-}
 
+}

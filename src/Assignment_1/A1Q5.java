@@ -8,7 +8,8 @@ import becker.robots.Wall;
 import java.awt.Color;
 
 /**
- *The Robots will pick up things and meet in the middle
+ * the Robots will pick up things and meet in the middle
+ *
  * @author tarra7926
  */
 public class A1Q5 {

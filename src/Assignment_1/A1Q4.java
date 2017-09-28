@@ -64,5 +64,4 @@ public class A1Q4 {
         guyfieri.move();
 
     }
-
 }
