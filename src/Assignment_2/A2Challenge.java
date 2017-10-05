@@ -104,23 +104,26 @@ public class A2Challenge {
         //loop the following forever
         while (true) {
 
-            //while alec's front is not clear turn right
-            while (!(alec.frontIsClear())) {
-                alec.turnLeft();
-                alec.turnLeft();
-                alec.turnLeft();
+            if (alec.frontIsClear()) {
+                alec.move();
+                
 
-            }
+            } else {
 
-            //have alec move than turn left
-            alec.move();
 
-            while (alec.canPickThing());
-            {
-                alec.pickThing();
-                break;
-
+                //while alec's front is not clear turn right
+                if (!(alec.frontIsClear())) {
+                    alec.turnLeft();
+                    alec.turnLeft();
+                    alec.turnLeft();
+                    
+                }
+                alec.move();
+                if (alec.canPickThing()) {
+                    alec.pickThing();
             }
         }
+            alec.turnLeft();
     }
+}
 }

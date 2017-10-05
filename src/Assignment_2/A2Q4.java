@@ -6,7 +6,7 @@ import becker.robots.Robot;
 import becker.robots.Wall;
 
 /**
- * have alec patrol the walls
+ * have the robot patrol the walls
  * @author tarra7926
  */
 public class A2Q4 {
@@ -41,9 +41,6 @@ public class A2Q4 {
         new Wall(flavourtown, 4, 4, Direction.SOUTH);
         new Wall(flavourtown, 3, 2, Direction.SOUTH);
         new Wall(flavourtown, 3, 3, Direction.SOUTH);
-        
-
-        
         
             //loop the following forever
             while (true) {
