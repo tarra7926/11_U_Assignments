@@ -101,29 +101,29 @@ public class A2Challenge {
         new Wall(flavourtown, 10, 3, Direction.EAST);
         new Wall(flavourtown, 10, 3, Direction.SOUTH);
 
-        //loop the following forever
-        while (true) {
 
-            if (alec.frontIsClear()) {
-                alec.move();
-                
+        
 
-            } else {
-
-
-                //while alec's front is not clear turn right
-                if (!(alec.frontIsClear())) {
-                    alec.turnLeft();
-                    alec.turnLeft();
-                    alec.turnLeft();
-                    
-                }
-                alec.move();
-                if (alec.canPickThing()) {
-                    alec.pickThing();
-            }
-        }
+//have alec move than turn right
+        while (true) {   
+        alec.move();
             alec.turnLeft();
-    }
+        while (true) {
+            
+       
+            if (alec.frontIsClear()) {
+            alec.move();
+             break;   
+            
+    } else {
+            
+            alec.turnLeft();
+            alec.turnLeft();
+            alec.turnLeft();
+            break;
+}   
+
+}
+}
 }
 }

@@ -48,6 +48,7 @@ public class A2Q2 {
             //while alec's front is not clear turn left
             while (!(alec.frontIsClear())) {
                 alec.turnLeft();
+                
 
             }
             //have alec move than turn right
