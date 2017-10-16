@@ -24,7 +24,12 @@ public class A4Q7 {
             diceSum = input.nextInt();
         }
 
-        for (int spotNumber = diceSum + 1; spotNumber == 100; spotNumber = spotNumber + diceSum) {
+        for (int spotNumber = diceSum + 1; !(spotNumber == 100); spotNumber = spotNumber + diceSum) {
+            if (spotNumber > 100) {
+                System.out.println("You can only roll the exact number to win the game. Skip turn");
+                spotNumber = spotNumber - diceSum;
+
+            }
             System.out.println("You are now on square " + spotNumber);
 
             if (spotNumber == 9) {
@@ -57,7 +62,6 @@ public class A4Q7 {
                 spotNumber = 77;
 
             }
-           
 
             System.out.print("Enter Sum of Dice: ");
             diceSum = input.nextInt();
@@ -66,14 +70,9 @@ public class A4Q7 {
                 System.out.print("You can't roll that number, enter sum again: ");
                 diceSum = input.nextInt();
             }
-            if (spotNumber > 100) {
-                System.out.println("You can only roll the exact number to win the game. Skip turn");
-                spotNumber = spotNumber - diceSum;
-
-            }
         }
         System.out.println("You are now on square 100");
-        System.out.print("You Win!");
-        
+        System.out.println("You Win!");
+
     }
 }
