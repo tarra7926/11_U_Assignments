@@ -5,6 +5,7 @@
 package Assignment_4;
 
 /**
+ * create a celsius to fahrenheit and a fahrenheit to celsius converter
  *
  * @author tarra7926
  */
@@ -93,27 +94,37 @@ public class A4Q10 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fToCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fToCActionPerformed
+        //create a string variable called "fahrenheitText" with the input from the fahrenheit box
         String fahrenheitText = fahrenheit.getText();
-        
-        double fahrenheitInput = Double.parseDouble(fahrenheitText);   
-        
-        double celsiusResult = (fahrenheitInput - 32)/1.8;
-        
-        double celsiusResultRounded = Math.ceil(celsiusResult*10)/10;
-        
-        celsius.setText (String.valueOf(celsiusResultRounded));
+
+        //convert variable "fahrenheitText" to a double called "fahrenheitInput"
+        double fahrenheitInput = Double.parseDouble(fahrenheitText);
+
+        //create a double called "celsiusResult" that calulates celsius
+        double celsiusResult = (fahrenheitInput - 32) / 1.8;
+
+        //create a double called "celsiusResultRounded" that rounds the "celsiusResult" value
+        double celsiusResultRounded = Math.ceil(celsiusResult * 10) / 10;
+
+        //output the celsiusResultRounded value into output box
+        celsius.setText(String.valueOf(celsiusResultRounded));
     }//GEN-LAST:event_fToCActionPerformed
 
     private void cToFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cToFActionPerformed
+        //create a string variable called "celsiusText" with the input from the celsius box
         String celsiusText = celsius.getText();
-        
-        double celsiusInput = Double.parseDouble(celsiusText);   
-        
+
+        //convert variable "celsiusText" to a double called "celsiusInput"
+        double celsiusInput = Double.parseDouble(celsiusText);
+
+        //create a double called "fahrenheitResult" that calulates fahrenheit
         double fahrenheitResult = celsiusInput * 1.8 + 32;
-        
-        double fahrenheitResultRounded = Math.ceil(fahrenheitResult*10)/10;
-        
-        fahrenheit.setText (String.valueOf(fahrenheitResultRounded));
+
+        //create a double called "fahrenheitResultRounded" that rounds the "fahrenheitResult" value
+        double fahrenheitResultRounded = Math.ceil(fahrenheitResult * 10) / 10;
+
+        //output the fahrenheitResultRounded value into output box
+        fahrenheit.setText(String.valueOf(fahrenheitResultRounded));
     }//GEN-LAST:event_cToFActionPerformed
 
     /**

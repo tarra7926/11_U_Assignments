@@ -5,6 +5,7 @@
 package Assignment_4;
 
 /**
+ * create a calculator
  *
  * @author tarra7926
  */
@@ -141,59 +142,83 @@ public class A4Q9 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        //create a string variable called "firstNumText" with the input from the first box
         String firstNumText = firstNumInput.getText();
-        
+
+        //create a string variable called "secondNumText" with the input from the second box
         String secondNumText = secondNumInput.getText();
-        
+
+        //convert variable "firstNumText" to a double called "firstNum"
         double firstNum = Double.parseDouble(firstNumText);
-        
+
+        //convert variable "secondNumText" to a double called "secondNum"
         double secondNum = Double.parseDouble(secondNumText);
-        
+
+        //create double called "sum"
         double sum = firstNum + secondNum;
-        
-        output.setText (String.valueOf(sum));
+
+        //output the sum value into output box
+        output.setText(String.valueOf(sum));
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void subButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subButtonActionPerformed
+        //create a string variable called "firstNumText" with the input from the first box
         String firstNumText = firstNumInput.getText();
-        
+
+        //create a string variable called "secondNumText" with the input from the second box
         String secondNumText = secondNumInput.getText();
-        
+
+        //convert variable "firstNumText" to a double called "firstNum"
         double firstNum = Double.parseDouble(firstNumText);
-        
+
+        //convert variable "secondNumText" to a double called "secondNum"
         double secondNum = Double.parseDouble(secondNumText);
-        
+
+        //create double called "difference"
         double difference = firstNum - secondNum;
-        
-        output.setText (String.valueOf(difference));
+
+        //output the difference value into output box
+        output.setText(String.valueOf(difference));
     }//GEN-LAST:event_subButtonActionPerformed
 
     private void mulButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mulButtonActionPerformed
+        //create a string variable called "firstNumText" with the input from the first box
         String firstNumText = firstNumInput.getText();
-        
+
+        //create a string variable called "secondNumText" with the input from the second box
         String secondNumText = secondNumInput.getText();
-        
+
+        //convert variable "firstNumText" to a double called "firstNum"
         double firstNum = Double.parseDouble(firstNumText);
-        
+
+        //convert variable "secondNumText" to a double called "secondNum"
         double secondNum = Double.parseDouble(secondNumText);
-        
+
+        //create double called "product"
         double product = firstNum * secondNum;
-        
-        output.setText (String.valueOf(product));
+
+        //output the product value into output box
+        output.setText(String.valueOf(product));
     }//GEN-LAST:event_mulButtonActionPerformed
 
     private void divButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divButtonActionPerformed
+        //create a string variable called "firstNumText" with the input from the first box
         String firstNumText = firstNumInput.getText();
-        
+
+        //create a string variable called "secondNumText" with the input from the second box
         String secondNumText = secondNumInput.getText();
-        
+
+        //convert variable "firstNumText" to a double called "firstNum"
         double firstNum = Double.parseDouble(firstNumText);
-        
+
+        //convert variable "secondNumText" to a double called "secondNum"
         double secondNum = Double.parseDouble(secondNumText);
-        
+
+        //create double called "quotient"
         double quotient = firstNum / secondNum;
-        
-        output.setText (String.valueOf(quotient));
+
+        //output the quotient value into output box
+        output.setText(String.valueOf(quotient));
     }//GEN-LAST:event_divButtonActionPerformed
 
     /**

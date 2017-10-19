@@ -5,6 +5,7 @@
 package Assignment_4;
 
 /**
+ * Create a GUI that can say Hello
  *
  * @author tarra7926
  */
@@ -30,6 +31,7 @@ public class A4Q8 extends javax.swing.JFrame {
         sayHello = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         output = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Say Hello!");
@@ -48,8 +50,9 @@ public class A4Q8 extends javax.swing.JFrame {
         });
 
         output.setEditable(false);
-        output.setRows(5);
         jScrollPane2.setViewportView(output);
+
+        jLabel1.setText("Name:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,20 +64,24 @@ public class A4Q8 extends javax.swing.JFrame {
                         .addGap(133, 133, 133)
                         .addComponent(sayHello))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nameInput)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(sayHello)
                 .addGap(60, 60, 60))
         );
@@ -87,10 +94,11 @@ public class A4Q8 extends javax.swing.JFrame {
     }//GEN-LAST:event_nameInputActionPerformed
 
     private void sayHelloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sayHelloActionPerformed
-        //get text from input box
+        //get a variable called "name" from input box
         String name = nameInput.getText();
-        
-        output.setText ("Hello " + name);
+
+        //say "Hello" and the variable "name" after Hello
+        output.setText("Hello " + name);
     }//GEN-LAST:event_sayHelloActionPerformed
 
     /**
@@ -128,6 +136,7 @@ public class A4Q8 extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nameInput;
     private javax.swing.JTextArea output;
