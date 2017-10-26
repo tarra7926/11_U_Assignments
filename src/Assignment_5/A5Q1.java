@@ -18,24 +18,30 @@ public class A5Q1 {
         
         System.out.println("Please enter a word:");
         
-        String word = input.nextLine();   
+        String word = input.nextLine();
+        word = word.toLowerCase();
+        
         StringBuilder builder = new StringBuilder(word);
         
         
         //find the first vowel by going through each letter
-            for(int i = 0; i < word.length(); i ++){
+            for(int i = 0; i < builder.length(); i ++){
                 
                 //look for a vowel at spot 5
-                if(word.charAt(i) == 'a' || word.charAt(i) == 'e' || word.charAt(i) == 'i' || word.charAt(i) == 'o' || word.charAt(i) == 'u'){
+                if(builder.charAt(i) == 'a' || builder.charAt(i) == 'e' || builder.charAt(i) == 'i' || builder.charAt(i) == 'o' || builder.charAt(i) == 'u'){
                     builder.insert(i,"ub");
-                       word = word + 2;
+                    i = i +2;
                     
-                    if(word.charAt(i+1) == 'a' || word.charAt(i+1) == 'e' || word.charAt(i+1) == 'i' || word.charAt(i+1) == 'o' || word.charAt(i+1) == 'u'){
-                        i = i + 1;
-                    }
                    
+                       
+                    if(builder.charAt(i+1) == 'a' || builder.charAt(i+1) == 'e' || builder.charAt(i+1) == 'i' || builder.charAt(i+1) == 'o' || builder.charAt(i+1) == 'u'){
+                        i = i + 1;
+                    
+                    }
+                 
                   
                 }
+                
                  
     }
             String newWord = builder.toString();
