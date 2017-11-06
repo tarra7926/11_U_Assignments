@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * create an Ubbi Dubbi translator
+ *
  * @author tarra7926
  */
 public class A5 {
@@ -78,7 +79,7 @@ public class A5 {
 
         }
 
-        //say "Thanks for using our translator."
+        //say "Thanks for using the translator."
         System.out.println("Thanks for using the translator.");
 
     }
