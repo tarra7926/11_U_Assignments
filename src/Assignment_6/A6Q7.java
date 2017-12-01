@@ -3,7 +3,7 @@ package Assignment_6;
 import java.util.Scanner;
 
 /**
- *
+ * 
  * @author tarra7926
  */
 public class A6Q7 {
@@ -12,22 +12,26 @@ public class A6Q7 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //create a scanner called input
         Scanner input = new Scanner(System.in);
+        //create and an int array called nums which is 999 long
         int[] nums = new int[999];
+        //create and an int array called nonPrimeNums which is 999 long
         int[] nonPrimeNums = new int[999];
-        
+        //fill the nums array with the numbers 2 - 1000
         for (int i = 0; i < nums.length; i++) {
             nums[i] = i + 2;
         }
-        int p = 0;
+        //create a int variable
+        int currentPrime = 0;
         
-        while (p < nums.length/2) {
-            for (int i = p + nums[p]; i < nums.length; i = i + nums[p]) {
+        while (currentPrime < nums.length/2) {
+            for (int i = currentPrime + nums[currentPrime]; i < nums.length; i = i + nums[currentPrime]) {
                 nonPrimeNums[i] = nums[i];
             }
-            for (int i = p + 1; i < nums.length; i = i + 1) {
+            for (int i = currentPrime + 1; i < nums.length; i = i + 1) {
                 if (nonPrimeNums[i] == 0) {
-                    p = i;
+                    currentPrime = i;
                     break;
                 }
             }
