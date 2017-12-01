@@ -59,6 +59,7 @@ public class A6Q7 {
                 primeNums[primeNumsSpot] = i + 2;
             }
         }
+        //say "These are the prime numbers bewteen 2 and 1000: "
         System.out.print("These are the prime numbers bewteen 2 and 1000: ");
         //output all prime numbers between 2 and 1000
         for (int i = 0; i < primeNums.length; i = i + 1) {
