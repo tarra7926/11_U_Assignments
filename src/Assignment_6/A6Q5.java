@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Gather 10 marks, sort them in ascending order, and get the median
+ *
  * @author tarra7926
  */
 public class A6Q5 {

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Gather the heights of people and output the heights that are above average
+ *
  * @author tarra7926
  */
 public class A6Q2 {

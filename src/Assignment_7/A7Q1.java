@@ -4,15 +4,18 @@ import java.util.Scanner;
 
 /**
  * Calculate and output the area of a circle
+ *
  * @author tarra7926
  */
 public class A7Q1 {
+
     /**
      * Calculate the area of a circle given its radius
+     *
      * @param radius the radius of the circle
      * @return the rounded calculated area
      */
-public double circleArea(double radius) {
+    public double circleArea(double radius) {
 
         //create a double called answer which is equal to pie times radius squared
         double answer = Math.PI * Math.pow(radius, 2);
@@ -28,6 +31,7 @@ public double circleArea(double radius) {
 
     /**
      * Gather the radius and output the answer
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

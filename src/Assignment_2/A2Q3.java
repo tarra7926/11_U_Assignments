@@ -6,6 +6,7 @@ import becker.robots.Robot;
 
 /**
  * have a alec always move to the origin (0,0)
+ *
  * @author tarra7926
  */
 public class A2Q3 {
@@ -15,7 +16,7 @@ public class A2Q3 {
 
         //create a Robot
         Robot alec = new Robot(flavourtown, 10, 20, Direction.EAST);
-        
+
         //while alec is not facing north and is on a street greater than 0, alec turns left
         while (alec.getDirection() != Direction.NORTH && alec.getStreet() > 0) {
             alec.turnLeft();

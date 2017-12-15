@@ -3,7 +3,9 @@ package Assignment_6;
 import java.util.Scanner;
 
 /**
- * Gather the marks of a class then determine the highest, lowest, and the average of all the marks
+ * Gather the marks of a class then determine the highest, lowest, and the
+ * average of all the marks
+ *
  * @author tarra7926
  */
 public class A6Q6 {

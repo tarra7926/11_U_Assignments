@@ -7,9 +7,11 @@ import becker.robots.Wall;
 
 /**
  * have the robot patrol the walls
+ *
  * @author tarra7926
  */
 public class A2Q4 {
+
     public static void main(String[] args) {
         City flavourtown = new City();
 
@@ -41,24 +43,23 @@ public class A2Q4 {
         new Wall(flavourtown, 4, 4, Direction.SOUTH);
         new Wall(flavourtown, 3, 2, Direction.SOUTH);
         new Wall(flavourtown, 3, 3, Direction.SOUTH);
-        
-            //loop the following forever
-            while (true) {
-                
-                //while alec's front is not clear turn left
-                while (!(alec.frontIsClear())) {
-                    alec.turnLeft();
 
-                }
+        //loop the following forever
+        while (true) {
 
-                //have alec move than turn right
-                alec.move();
-                alec.turnLeft();
-                alec.turnLeft();
+            //while alec's front is not clear turn left
+            while (!(alec.frontIsClear())) {
                 alec.turnLeft();
 
-            
+            }
+
+            //have alec move than turn right
+            alec.move();
+            alec.turnLeft();
+            alec.turnLeft();
+            alec.turnLeft();
+
+
         }
     }
-
 }

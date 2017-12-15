@@ -10,6 +10,7 @@ public class A6Q3 {
 
     /**
      * Gather 2 integers and put them in ascending order
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {

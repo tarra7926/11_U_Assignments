@@ -8,11 +8,12 @@ import java.util.Scanner;
  * @author tarra7926
  */
 public class A7Q2 {
+
     /**
      * Find and output the letter equivalent of the grade
+     *
      * @param mark the exam mark
      */
-
     public void examGrade(double mark) {
         //outputs the letter equivalent of the grade
         if (mark >= 80) {

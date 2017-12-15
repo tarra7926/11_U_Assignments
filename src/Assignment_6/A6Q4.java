@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Gather 10 marks and sort them in ascending order
+ *
  * @author tarra7926
  */
 public class A6Q4 {
@@ -26,7 +27,7 @@ public class A6Q4 {
         }
         //create an double variable called markHold which is equal to 0
         double markHold = 0;
-        
+
         //using a loop sort the 10 numbers in ascending order
         for (int i = 0; i < marks.length; i++) {
             if (i == 0) {

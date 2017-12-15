@@ -102,28 +102,28 @@ public class A2Challenge {
         new Wall(flavourtown, 10, 3, Direction.SOUTH);
 
 
-        
+
 
 //have alec move than turn right
-        while (true) {   
-        alec.move();
-            alec.turnLeft();
         while (true) {
-            
-       
-            if (alec.frontIsClear()) {
             alec.move();
-             break;   
-            
-    } else {
-            
             alec.turnLeft();
-            alec.turnLeft();
-            alec.turnLeft();
-            break;
-}   
+            while (true) {
 
-}
-}
-}
+
+                if (alec.frontIsClear()) {
+                    alec.move();
+                    break;
+
+                } else {
+
+                    alec.turnLeft();
+                    alec.turnLeft();
+                    alec.turnLeft();
+                    break;
+                }
+
+            }
+        }
+    }
 }
