@@ -28,7 +28,7 @@ public class A7Q8 {
             }
             integer = integer / 10;
         }
-        //return the all0dd variable
+        //return the allOdd variable
         return allOdd;
 
     }
