@@ -38,8 +38,8 @@ public class Game_Summative extends JComponent {
     Rectangle playerPart1 = new Rectangle((WIDTH / 2) - (paddleWidth / 2), HEIGHT - 50, paddleWidth / 2, paddleHeight / 2);
     Rectangle playerPart2 = new Rectangle(playerPart1.x + playerPart1.width, HEIGHT - 50, playerPart1.width, playerPart1.height);
     Rectangle[] grayBlocks = new Rectangle[1];
-    int blockHeight = 25;
-    int blockWidth = 50;
+    int blockHeight = 300;
+    int blockWidth = 300;
     int ballHeight = 25;
     int ballWidth = 25;
     Rectangle ball = new Rectangle((WIDTH / 2) - (ballWidth / 2), playerPart1.y - 100, ballWidth, ballHeight);
@@ -163,14 +163,11 @@ public class Game_Summative extends JComponent {
             }
             for (int i = 0; i < grayBlocks.length; i++) {
                 if (ball.intersects(grayBlocks[i])) {
-                    if(ball.y == grayBlocks[i].y || ball.y == grayBlocks[i].y - ball.height){
-                        ballYDirection = -1;
+                    if(ball.y + ball.height > grayBlocks[i].y || ball.y < grayBlocks[i].y + grayBlocks[i].height){
+                        ballYDirection = ballYDirection * -1;
+                    } else {
+                        ballXDirection = ballXDirection * -1;
                     }
-                    
-                    
-                       //if((ballXDirection == -1 && ballYDirection == -1) || (ballXDirection == 1 && ballYDirection == -1) || (ballXDirection == -1 && ballYDirection == 1) || (ballXDirection == 1 && ballYDirection == 1)){
-                        //   ballYDirection = ballYDirection * -1;
-                       //}
                 }
             }
             if (ball.intersects(playerPart2)) {
