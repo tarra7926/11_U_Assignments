@@ -38,8 +38,8 @@ public class Game_Summative extends JComponent {
     Rectangle playerPart1 = new Rectangle((WIDTH / 2) - (paddleWidth / 2), HEIGHT - 50, paddleWidth / 2, paddleHeight / 2);
     Rectangle playerPart2 = new Rectangle(playerPart1.x + playerPart1.width, HEIGHT - 50, playerPart1.width, playerPart1.height);
     Rectangle[] grayBlocks = new Rectangle[1];
-    int blockHeight = 300;
-    int blockWidth = 300;
+    int blockHeight = 25;
+    int blockWidth = 50;
     int ballHeight = 25;
     int ballWidth = 25;
     Rectangle ball = new Rectangle((WIDTH / 2) - (ballWidth / 2), playerPart1.y - 100, ballWidth, ballHeight);
@@ -97,7 +97,9 @@ public class Game_Summative extends JComponent {
         g.fillRect(0, 0, WIDTH, HEIGHT);
         for (int i = 0; i < grayBlocks.length; i++) {
             g.setColor(Color.GRAY);
-            g.fillRect(grayBlocks[i].x, grayBlocks[i].y, grayBlocks[i].width, grayBlocks[i].height);
+            if (grayBlocks[i] != null) {
+                g.fillRect(grayBlocks[i].x, grayBlocks[i].y, grayBlocks[i].width, grayBlocks[i].height);
+            }
         }
         g.fillRect(playerPart1.x, playerPart1.y, playerPart1.width, playerPart1.height);
         g.fillRect(playerPart2.x, playerPart2.y, playerPart2.width, playerPart2.height);
@@ -161,15 +163,21 @@ public class Game_Summative extends JComponent {
                 ballXDirection = -1;
                 ballYDirection = -1;
             }
+
             for (int i = 0; i < grayBlocks.length; i++) {
                 if (ball.intersects(grayBlocks[i])) {
-                    if(ball.y + ball.height > grayBlocks[i].y || ball.y < grayBlocks[i].y + grayBlocks[i].height){
-                        ballYDirection = ballYDirection * -1;
-                    } else {
+                    int cHeight = Math.min(grayBlocks[i].y + grayBlocks[i].height, ball.y + ball.height) - Math.max(grayBlocks[i].y, ball.y);
+                    int cWidth = Math.min(grayBlocks[i].x + grayBlocks[i].width, ball.x + ball.width) - Math.max(grayBlocks[i].x, ball.x);
+                    if (cWidth < cHeight) {
+
                         ballXDirection = ballXDirection * -1;
+                    } else {
+
+                        ballYDirection = ballYDirection * -1;
                     }
                 }
             }
+
             if (ball.intersects(playerPart2)) {
                 ballXDirection = 1;
                 ballYDirection = -1;
