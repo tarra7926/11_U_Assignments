@@ -38,10 +38,16 @@ public class Game_Summative extends JComponent {
     Rectangle playerPart1 = new Rectangle((WIDTH / 2) - (paddleWidth / 2), HEIGHT - 50, paddleWidth / 2, paddleHeight / 2);
     Rectangle playerPart2 = new Rectangle(playerPart1.x + playerPart1.width, HEIGHT - 50, playerPart1.width, playerPart1.height);
     Rectangle[] grayBlocks = new Rectangle[1];
+    Rectangle[] yellowBlocks = new Rectangle[1];
+    Rectangle[] redBlocks = new Rectangle[1];
+    int[] grayBlockLife = new int[grayBlocks.length];
+    int[] yellowBlockLife = new int[yellowBlocks.length];
+    int[] redBlockLife = new int[redBlocks.length];
     int blockHeight = 25;
     int blockWidth = 50;
     int ballHeight = 25;
     int ballWidth = 25;
+    int blockSpace = 25;
     Rectangle ball = new Rectangle((WIDTH / 2) - (ballWidth / 2), playerPart1.y - 100, ballWidth, ballHeight);
     int paddleSpeed = 7;
     int ballSpeed = 5;
@@ -101,10 +107,27 @@ public class Game_Summative extends JComponent {
                 g.fillRect(grayBlocks[i].x, grayBlocks[i].y, grayBlocks[i].width, grayBlocks[i].height);
             }
         }
+        for (int i = 0; i < yellowBlocks.length; i++) {
+            g.setColor(Color.YELLOW);
+            if (yellowBlocks[i] != null) {
+                g.fillRect(yellowBlocks[i].x, yellowBlocks[i].y, yellowBlocks[i].width, yellowBlocks[i].height);
+            }
+        }
+        for (int i = 0; i < redBlocks.length; i++) {
+            g.setColor(candyRed);
+            if (redBlocks[i] != null) {
+                g.fillRect(redBlocks[i].x, redBlocks[i].y, redBlocks[i].width, redBlocks[i].height);
+            }
+        }
         g.fillRect(playerPart1.x, playerPart1.y, playerPart1.width, playerPart1.height);
         g.fillRect(playerPart2.x, playerPart2.y, playerPart2.width, playerPart2.height);
         g.fillRect(ball.x, ball.y, ball.width, ball.height);
-        g.setColor(candyRed);
+        for (int i = 0; i < redBlocks.length; i++) {
+            g.setColor(candyRed);
+            if (redBlocks[i] != null) {
+                g.fillRect(redBlocks[i].x, redBlocks[i].y, redBlocks[i].width, redBlocks[i].height);
+            }
+        }
 
         if (ballYDirection == 0) {
             g.drawString("Press enter to Start", (WIDTH / 2) - 240, HEIGHT / 2 + 100);
@@ -121,7 +144,8 @@ public class Game_Summative extends JComponent {
     public void preSetup() {
         // Any of your pre setup before the loop starts should go here
         grayBlocks[0] = new Rectangle((WIDTH / 2) - (blockWidth / 2), (HEIGHT / 2) - (blockHeight / 2), blockWidth, blockHeight);
-
+        redBlocks[0] = new Rectangle(grayBlocks[0].x - blockWidth - blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
+        yellowBlocks[0] = new Rectangle(grayBlocks[0].x + blockWidth + blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
     }
 
     // The main game loop
@@ -147,6 +171,15 @@ public class Game_Summative extends JComponent {
                 startPosition = true;
             } else {
                 startPosition = false;
+            }
+            for (int i = 0; i < grayBlocks.length; i++) {
+                grayBlockLife[i] = 1;
+            }
+            for (int i = 0; i < redBlocks.length; i++) {
+                yellowBlockLife[i] = 2;
+            }
+            for (int i = 0; i < grayBlocks.length; i++) {
+                redBlockLife[i] = 3;
             }
 
 
@@ -174,6 +207,47 @@ public class Game_Summative extends JComponent {
                     } else {
 
                         ballYDirection = ballYDirection * -1;
+                    }
+                    grayBlockLife[i] = grayBlockLife[i] - 1;
+                    if (grayBlockLife[i] == 0) {
+                        grayBlocks[i].height = 0;
+                        grayBlocks[i].width = 0;
+                    }
+                }
+            }
+            for (int i = 0; i < yellowBlocks.length; i++) {
+                if (ball.intersects(yellowBlocks[i])) {
+                    int cHeight = Math.min(yellowBlocks[i].y + yellowBlocks[i].height, ball.y + ball.height) - Math.max(yellowBlocks[i].y, ball.y);
+                    int cWidth = Math.min(yellowBlocks[i].x + yellowBlocks[i].width, ball.x + ball.width) - Math.max(yellowBlocks[i].x, ball.x);
+                    if (cWidth < cHeight) {
+
+                        ballXDirection = ballXDirection * -1;
+                    } else {
+
+                        ballYDirection = ballYDirection * -1;
+                    }
+                    yellowBlockLife[i] = yellowBlockLife[i] - 1;;
+                    if (yellowBlockLife[i] == 0) {
+                        yellowBlocks[i].height = 0;
+                        yellowBlocks[i].width = 0;
+                    }
+                }
+            }
+            for (int i = 0; i < redBlocks.length; i++) {
+                if (ball.intersects(redBlocks[i])) {
+                    int cHeight = Math.min(redBlocks[i].y + redBlocks[i].height, ball.y + ball.height) - Math.max(redBlocks[i].y, ball.y);
+                    int cWidth = Math.min(redBlocks[i].x + redBlocks[i].width, ball.x + ball.width) - Math.max(redBlocks[i].x, ball.x);
+                    if (cWidth < cHeight) {
+
+                        ballXDirection = ballXDirection * -1;
+                    } else {
+
+                        ballYDirection = ballYDirection * -1;
+                    }
+                    redBlockLife[i] = redBlockLife[i] - 1;
+                    if (redBlockLife[i] == 0) {
+                        redBlocks[i].height = 0;
+                        redBlocks[i].width = 0;
                     }
                 }
             }
