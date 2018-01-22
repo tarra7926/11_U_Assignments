@@ -57,7 +57,7 @@ public class Game_Summative extends JComponent {
     int startBallY = playerPart1.y - 100;
     int blockSpace = 25;
     Rectangle ball = new Rectangle((WIDTH / 2) - (ballWidth / 2), playerPart1.y - 100, ballWidth, ballHeight);
-    int paddleSpeed = 9;
+    int paddleSpeed = 12;
     int ballSpeed = 6;
     int ballXDirection = 0;
     int ballYDirection = 0;
@@ -67,10 +67,17 @@ public class Game_Summative extends JComponent {
     boolean enter = false;
     boolean yellowBlockFullLife = true;
     boolean redBlockFullLife = true;
+    boolean allGrayGone = false;
+    boolean allYellowGone = false;
+    boolean allRedGone = false;
+    int grayCounter = 0;
+    int yellowCounter = 0;
+    int redCounter = 0;
     Font biggerFont = new Font("Swis721 BlkOul BT", Font.BOLD, 60);
     Font font = new Font("Swis721 BlkOul BT", Font.BOLD, 42);
     Font smallerFont = new Font("Swis721 BlkOul BT", Font.BOLD, 22);
     Color candyRed = new Color(217, 0, 101);
+    Color skyBlue = new Color(72, 231, 236);
     // GAME VARIABLES END HERE   
 
     // Constructor to create the Frame and place the panel in
@@ -144,17 +151,17 @@ public class Game_Summative extends JComponent {
         if (ballYDirection == 0) {
             g.setColor(Color.WHITE);
             g.setFont(biggerFont);
-            g.drawString("Block", (WIDTH / 2) - 78, 190);
-            g.drawString("Breaker", (WIDTH / 2) - 108, 250);
+            g.drawString("Block", (WIDTH / 2) - 95, 190);
+            g.drawString("Breaker", (WIDTH / 2) - 134, 250);
             g.setFont(font);
-            g.drawString("Press ENTER to Start", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+            g.drawString("Press ENTER to Start", (WIDTH / 2) - 250, HEIGHT / 2 + 100);
             if (enter) {
                 ballYDirection = 1;
             }
         }
         g.setFont(smallerFont);
-        g.drawString("Lives Left: " + lives, WIDTH - 150, 23);
-        g.setColor(Color.blue);
+        g.setColor(skyBlue);
+        g.drawString("Lives Left: " + lives, WIDTH - 180, 23);
         g.fillRect(playerPart1.x, playerPart1.y, playerPart1.width, playerPart1.height);
         g.fillRect(playerPart2.x, playerPart2.y, playerPart2.width, playerPart2.height);
         g.fillRect(ball.x, ball.y, ball.width, ball.height);
@@ -163,10 +170,18 @@ public class Game_Summative extends JComponent {
         g.fillRect(gBorderTop.x, gBorderTop.y, gBorderTop.width, gBorderTop.height);
         
         if(lives<=0){
+        g.setFont(biggerFont);
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         g.setColor(Color.WHITE);
-        g.drawString("you lose", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+        g.drawString("You Lose", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+        }
+        if(allGrayGone){
+        g.setFont(biggerFont);
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.setColor(Color.WHITE);
+        g.drawString("You Win!", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
         }
         // GAME DRAWING ENDS HERE
     }
@@ -174,7 +189,7 @@ public class Game_Summative extends JComponent {
     // This method is used to do any pre-setup you might need to do
     // This is run before the game loop begins!
     public void preSetup() {
-        // Any of your pre setup before the loop starts should go here
+        //Any of your pre setup before the loop starts should go here
         grayBlocks[0] = new Rectangle((WIDTH / 2) - (blockWidth / 2), (HEIGHT / 2) - (blockHeight / 2) + 25, blockWidth, blockHeight);
         grayBlocks[1] = new Rectangle(grayBlocks[0].x - blockWidth - blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
         grayBlocks[2] = new Rectangle(grayBlocks[0].x + blockWidth + blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
@@ -256,8 +271,6 @@ public class Game_Summative extends JComponent {
                 ball.y = startBallY;
                 ballYDirection = 0;
                 ballXDirection = 0;
-                playerPart1.width = playerPart1.width/2;
-                playerPart2.x = playerPart1.x + playerPart1.width;
                 lives = lives - 1;
 
             }
@@ -342,6 +355,42 @@ public class Game_Summative extends JComponent {
                         redBlocks[i].width = 0;
                     }
                 }
+            }
+            for(int i = 0; i < grayBlocks.length; i++){
+                if(grayBlocks[i].width == 0){
+                    grayCounter = grayCounter + 1;
+                }else{
+                    grayCounter = 0;
+                }
+                if(grayCounter == grayBlocks.length){
+                    allGrayGone = true;
+                    break;
+                }
+                
+            }
+            for(int i = 0; i < yellowBlocks.length; i++){
+                if(yellowBlocks[i].width == 0){
+                    yellowCounter = yellowCounter + 1;
+                }else{
+                    yellowCounter = 0;
+                }
+                if(yellowCounter == yellowBlocks.length){
+                    allYellowGone = true;
+                    break;
+                }
+                
+            }
+            for(int i = 0; i < redBlocks.length; i++){
+                if(redBlocks[i].width == 0){
+                    redCounter = redCounter + 1;
+                }else{
+                    redCounter = 0;
+                }
+                if(redCounter == redBlocks.length){
+                    allRedGone = true;
+                    break;
+                }
+                
             }
 
             if (ball.intersects(playerPart2)) {
