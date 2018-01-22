@@ -35,11 +35,17 @@ public class Game_Summative extends JComponent {
     // YOUR GAME VARIABLES WOULD GO HERE
     int paddleWidth = 100;
     int paddleHeight = 20;
+    int borderSpace = 30;
     Rectangle playerPart1 = new Rectangle((WIDTH / 2) - (paddleWidth / 2), HEIGHT - 50, paddleWidth / 2, paddleHeight / 2);
     Rectangle playerPart2 = new Rectangle(playerPart1.x + playerPart1.width, HEIGHT - 50, playerPart1.width, playerPart1.height);
-    Rectangle[] grayBlocks = new Rectangle[1];
-    Rectangle[] yellowBlocks = new Rectangle[1];
-    Rectangle[] redBlocks = new Rectangle[1];
+    
+    Rectangle[] grayBlocks = new Rectangle[26];
+    Rectangle[] yellowBlocks = new Rectangle[18];
+    Rectangle[] redBlocks = new Rectangle[10];
+    
+    Rectangle gBorderLeft = new Rectangle(borderSpace, borderSpace, 7, HEIGHT);
+    Rectangle gBorderRight = new Rectangle(WIDTH - borderSpace - 1, borderSpace, 7, HEIGHT);
+    Rectangle gBorderTop = new Rectangle(borderSpace, borderSpace, WIDTH - borderSpace * 2 - 1, 7);
     int[] grayBlockLife = new int[grayBlocks.length];
     int[] yellowBlockLife = new int[yellowBlocks.length];
     int[] redBlockLife = new int[redBlocks.length];
@@ -47,17 +53,23 @@ public class Game_Summative extends JComponent {
     int blockWidth = 50;
     int ballHeight = 25;
     int ballWidth = 25;
+    int startBallX = (WIDTH / 2) - (ballWidth / 2);
+    int startBallY = playerPart1.y - 100;
     int blockSpace = 25;
     Rectangle ball = new Rectangle((WIDTH / 2) - (ballWidth / 2), playerPart1.y - 100, ballWidth, ballHeight);
-    int paddleSpeed = 7;
-    int ballSpeed = 5;
+    int paddleSpeed = 9;
+    int ballSpeed = 6;
     int ballXDirection = 0;
     int ballYDirection = 0;
+    int lives = 3;
     boolean playerLeft = false;
     boolean playerRight = false;
-    boolean startPosition = true;
     boolean enter = false;
+    boolean yellowBlockFullLife = true;
+    boolean redBlockFullLife = true;
+    Font biggerFont = new Font("Swis721 BlkOul BT", Font.BOLD, 60);
     Font font = new Font("Swis721 BlkOul BT", Font.BOLD, 42);
+    Font smallerFont = new Font("Swis721 BlkOul BT", Font.BOLD, 22);
     Color candyRed = new Color(217, 0, 101);
     // GAME VARIABLES END HERE   
 
@@ -98,8 +110,8 @@ public class Game_Summative extends JComponent {
 
         // GAME DRAWING GOES HERE
 
-        g.setColor(Color.BLACK);
-        g.setFont(font);
+        
+            g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         for (int i = 0; i < grayBlocks.length; i++) {
             g.setColor(Color.GRAY);
@@ -109,33 +121,53 @@ public class Game_Summative extends JComponent {
         }
         for (int i = 0; i < yellowBlocks.length; i++) {
             g.setColor(Color.YELLOW);
+            if (yellowBlockLife[i] == 1) {
+                g.setColor(Color.GRAY);
+            }
+
             if (yellowBlocks[i] != null) {
                 g.fillRect(yellowBlocks[i].x, yellowBlocks[i].y, yellowBlocks[i].width, yellowBlocks[i].height);
             }
         }
         for (int i = 0; i < redBlocks.length; i++) {
             g.setColor(candyRed);
+            if (redBlockLife[i] == 2) {
+                g.setColor(Color.YELLOW);
+            }
+            if (redBlockLife[i] == 1) {
+                g.setColor(Color.GRAY);
+            }
             if (redBlocks[i] != null) {
                 g.fillRect(redBlocks[i].x, redBlocks[i].y, redBlocks[i].width, redBlocks[i].height);
             }
         }
-        g.fillRect(playerPart1.x, playerPart1.y, playerPart1.width, playerPart1.height);
-        g.fillRect(playerPart2.x, playerPart2.y, playerPart2.width, playerPart2.height);
-        g.fillRect(ball.x, ball.y, ball.width, ball.height);
-        for (int i = 0; i < redBlocks.length; i++) {
-            g.setColor(candyRed);
-            if (redBlocks[i] != null) {
-                g.fillRect(redBlocks[i].x, redBlocks[i].y, redBlocks[i].width, redBlocks[i].height);
-            }
-        }
-
         if (ballYDirection == 0) {
-            g.drawString("Press enter to Start", (WIDTH / 2) - 240, HEIGHT / 2 + 100);
+            g.setColor(Color.WHITE);
+            g.setFont(biggerFont);
+            g.drawString("Block", (WIDTH / 2) - 78, 190);
+            g.drawString("Breaker", (WIDTH / 2) - 108, 250);
+            g.setFont(font);
+            g.drawString("Press ENTER to Start", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
             if (enter) {
                 ballYDirection = 1;
             }
         }
-
+        g.setFont(smallerFont);
+        g.drawString("Lives Left: " + lives, WIDTH - 150, 23);
+        g.setColor(Color.blue);
+        g.fillRect(playerPart1.x, playerPart1.y, playerPart1.width, playerPart1.height);
+        g.fillRect(playerPart2.x, playerPart2.y, playerPart2.width, playerPart2.height);
+        g.fillRect(ball.x, ball.y, ball.width, ball.height);
+        g.fillRect(gBorderLeft.x, gBorderLeft.y, gBorderLeft.width, gBorderLeft.height);
+        g.fillRect(gBorderRight.x, gBorderRight.y, gBorderRight.width, gBorderRight.height);
+        g.fillRect(gBorderTop.x, gBorderTop.y, gBorderTop.width, gBorderTop.height);
+        
+        if(lives<=0){
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.setColor(Color.WHITE);
+        g.drawString("you lose", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+        }
         // GAME DRAWING ENDS HERE
     }
 
@@ -143,9 +175,61 @@ public class Game_Summative extends JComponent {
     // This is run before the game loop begins!
     public void preSetup() {
         // Any of your pre setup before the loop starts should go here
-        grayBlocks[0] = new Rectangle((WIDTH / 2) - (blockWidth / 2), (HEIGHT / 2) - (blockHeight / 2), blockWidth, blockHeight);
-        redBlocks[0] = new Rectangle(grayBlocks[0].x - blockWidth - blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
-        yellowBlocks[0] = new Rectangle(grayBlocks[0].x + blockWidth + blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[0] = new Rectangle((WIDTH / 2) - (blockWidth / 2), (HEIGHT / 2) - (blockHeight / 2) + 25, blockWidth, blockHeight);
+        grayBlocks[1] = new Rectangle(grayBlocks[0].x - blockWidth - blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[2] = new Rectangle(grayBlocks[0].x + blockWidth + blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[3] = new Rectangle(grayBlocks[0].x - (blockWidth*2) - (blockSpace*2), grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[4] = new Rectangle(grayBlocks[0].x - (blockWidth*3) - (blockSpace*3), grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[5] = new Rectangle(grayBlocks[0].x - (blockWidth*4) - (blockSpace*4), grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[6] = new Rectangle(grayBlocks[0].x + blockWidth*2 + blockSpace*2, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[7] = new Rectangle(grayBlocks[0].x + blockWidth*3 + blockSpace*3, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[8] = new Rectangle(grayBlocks[0].x + blockWidth*4 + blockSpace*4, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[9] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*2, blockWidth, blockHeight);
+        grayBlocks[10] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*4, blockWidth, blockHeight);
+        grayBlocks[11] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*6, blockWidth, blockHeight);
+        grayBlocks[12] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*8, blockWidth, blockHeight);
+        grayBlocks[13] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*10, blockWidth, blockHeight);
+        grayBlocks[14] = new Rectangle(grayBlocks[7].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[15] = new Rectangle(grayBlocks[6].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[16] = new Rectangle(grayBlocks[2].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[17] = new Rectangle(grayBlocks[5].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[18] = new Rectangle(grayBlocks[4].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[19] = new Rectangle(grayBlocks[3].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[20] = new Rectangle(grayBlocks[1].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[21] = new Rectangle(grayBlocks[0].x, grayBlocks[13].y, blockWidth, blockHeight);
+        grayBlocks[22] = new Rectangle(grayBlocks[5].x, grayBlocks[12].y, blockWidth, blockHeight);
+        grayBlocks[23] = new Rectangle(grayBlocks[5].x, grayBlocks[11].y, blockWidth, blockHeight);
+        grayBlocks[24] = new Rectangle(grayBlocks[5].x, grayBlocks[10].y, blockWidth, blockHeight);
+        grayBlocks[25] = new Rectangle(grayBlocks[5].x, grayBlocks[9].y, blockWidth, blockHeight);
+        yellowBlocks[0] = new Rectangle(grayBlocks[4].x, grayBlocks[9].y, blockWidth, blockHeight);
+        yellowBlocks[1] = new Rectangle(grayBlocks[4].x, grayBlocks[10].y, blockWidth, blockHeight);
+        yellowBlocks[2] = new Rectangle(grayBlocks[4].x, grayBlocks[11].y, blockWidth, blockHeight);
+        yellowBlocks[3] = new Rectangle(grayBlocks[4].x, grayBlocks[12].y, blockWidth, blockHeight);
+        yellowBlocks[4] = new Rectangle(grayBlocks[7].x, grayBlocks[12].y, blockWidth, blockHeight);
+        yellowBlocks[5] = new Rectangle(grayBlocks[7].x, grayBlocks[11].y, blockWidth, blockHeight);
+        yellowBlocks[6] = new Rectangle(grayBlocks[7].x, grayBlocks[10].y, blockWidth, blockHeight);
+        yellowBlocks[7] = new Rectangle(grayBlocks[7].x, grayBlocks[9].y, blockWidth, blockHeight);
+        yellowBlocks[8] = new Rectangle(grayBlocks[1].x, grayBlocks[12].y, blockWidth, blockHeight);
+        yellowBlocks[9] = new Rectangle(grayBlocks[3].x, grayBlocks[12].y, blockWidth, blockHeight);
+        yellowBlocks[10] = new Rectangle(grayBlocks[0].x, grayBlocks[12].y, blockWidth, blockHeight);
+        yellowBlocks[11] = new Rectangle(grayBlocks[2].x, grayBlocks[12].y, blockWidth, blockHeight);
+        yellowBlocks[12] = new Rectangle(grayBlocks[6].x, grayBlocks[12].y, blockWidth, blockHeight);
+        yellowBlocks[13] = new Rectangle(grayBlocks[1].x, grayBlocks[9].y, blockWidth, blockHeight);
+        yellowBlocks[14] = new Rectangle(grayBlocks[3].x, grayBlocks[9].y, blockWidth, blockHeight);
+        yellowBlocks[15] = new Rectangle(grayBlocks[0].x, grayBlocks[9].y, blockWidth, blockHeight);
+        yellowBlocks[16] = new Rectangle(grayBlocks[2].x, grayBlocks[9].y, blockWidth, blockHeight);
+        yellowBlocks[17] = new Rectangle(grayBlocks[6].x, grayBlocks[9].y, blockWidth, blockHeight);
+        redBlocks[0] = new Rectangle(grayBlocks[6].x, grayBlocks[11].y, blockWidth, blockHeight);
+        redBlocks[1] = new Rectangle(grayBlocks[3].x, grayBlocks[11].y, blockWidth, blockHeight);
+        redBlocks[2] = new Rectangle(grayBlocks[2].x, grayBlocks[11].y, blockWidth, blockHeight);
+        redBlocks[3] = new Rectangle(grayBlocks[1].x, grayBlocks[11].y, blockWidth, blockHeight);
+        redBlocks[4] = new Rectangle(grayBlocks[0].x, grayBlocks[11].y, blockWidth, blockHeight);
+        redBlocks[5] = new Rectangle(grayBlocks[6].x, grayBlocks[10].y, blockWidth, blockHeight);
+        redBlocks[6] = new Rectangle(grayBlocks[3].x, grayBlocks[10].y, blockWidth, blockHeight);
+        redBlocks[7] = new Rectangle(grayBlocks[2].x, grayBlocks[10].y, blockWidth, blockHeight);
+        redBlocks[8] = new Rectangle(grayBlocks[1].x, grayBlocks[10].y, blockWidth, blockHeight);
+        redBlocks[9] = new Rectangle(grayBlocks[0].x, grayBlocks[10].y, blockWidth, blockHeight);
+    
     }
 
     // The main game loop
@@ -167,29 +251,36 @@ public class Game_Summative extends JComponent {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-            if (playerPart1.x == (WIDTH / 2) - (paddleWidth / 2) && ball.x == (WIDTH / 2) - (ballWidth / 2)) {
-                startPosition = true;
-            } else {
-                startPosition = false;
+            if (ball.y > HEIGHT) {
+                ball.x = startBallX;
+                ball.y = startBallY;
+                ballYDirection = 0;
+                ballXDirection = 0;
+                playerPart1.width = playerPart1.width/2;
+                playerPart2.x = playerPart1.x + playerPart1.width;
+                lives = lives - 1;
+
             }
+
             for (int i = 0; i < grayBlocks.length; i++) {
                 grayBlockLife[i] = 1;
             }
+            for (int i = 0; i < yellowBlocks.length; i++) {
+                if (yellowBlockFullLife) {
+                    yellowBlockLife[i] = 2;
+                }
+            }
             for (int i = 0; i < redBlocks.length; i++) {
-                yellowBlockLife[i] = 2;
+                if (redBlockFullLife) {
+                    redBlockLife[i] = 3;
+                }
             }
-            for (int i = 0; i < grayBlocks.length; i++) {
-                redBlockLife[i] = 3;
-            }
-
-
-
             ball.x = ball.x + ballXDirection * ballSpeed;
             ball.y = ball.y + ballYDirection * ballSpeed;
-            if (ball.y + ball.height > HEIGHT || ball.y < 0) {
+            if (ball.y < gBorderTop.y + gBorderTop.height) {
                 ballYDirection = ballYDirection * -1;
             }
-            if ((ball.x + ball.width > WIDTH) || ball.x < 0) {
+            if ((ball.x + ball.width > gBorderRight.x) || ball.x < gBorderLeft.x + gBorderLeft.width) {
                 ballXDirection = ballXDirection * -1;
             }
             if (ball.intersects(playerPart1)) {
@@ -226,7 +317,9 @@ public class Game_Summative extends JComponent {
 
                         ballYDirection = ballYDirection * -1;
                     }
-                    yellowBlockLife[i] = yellowBlockLife[i] - 1;;
+                    yellowBlockLife[i] = yellowBlockLife[i] - 1;
+                    yellowBlockFullLife = false;
+
                     if (yellowBlockLife[i] == 0) {
                         yellowBlocks[i].height = 0;
                         yellowBlocks[i].width = 0;
@@ -238,13 +331,12 @@ public class Game_Summative extends JComponent {
                     int cHeight = Math.min(redBlocks[i].y + redBlocks[i].height, ball.y + ball.height) - Math.max(redBlocks[i].y, ball.y);
                     int cWidth = Math.min(redBlocks[i].x + redBlocks[i].width, ball.x + ball.width) - Math.max(redBlocks[i].x, ball.x);
                     if (cWidth < cHeight) {
-
                         ballXDirection = ballXDirection * -1;
                     } else {
-
                         ballYDirection = ballYDirection * -1;
                     }
                     redBlockLife[i] = redBlockLife[i] - 1;
+                    redBlockFullLife = false;
                     if (redBlockLife[i] == 0) {
                         redBlocks[i].height = 0;
                         redBlocks[i].width = 0;
@@ -256,20 +348,14 @@ public class Game_Summative extends JComponent {
                 ballXDirection = 1;
                 ballYDirection = -1;
             }
-            if (playerLeft && playerPart1.x > 0) {
+            if (playerLeft && playerPart1.x > gBorderLeft.x + gBorderLeft.width) {
                 playerPart1.x = playerPart1.x - paddleSpeed;
                 playerPart2.x = playerPart2.x - paddleSpeed;
             }
-            if (playerRight && playerPart1.x < (WIDTH - paddleWidth)) {
+            if (playerRight && playerPart1.x < (gBorderRight.x - paddleWidth)) {
                 playerPart1.x = playerPart1.x + paddleSpeed;
                 playerPart2.x = playerPart2.x + paddleSpeed;
             }
-            if (playerPart1.x == (WIDTH / 2) - (paddleWidth / 2) && ball.x == (WIDTH / 2) - (ballWidth / 2)) {
-                startPosition = true;
-            } else {
-                startPosition = false;
-            }
-
 
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
