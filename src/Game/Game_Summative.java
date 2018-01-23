@@ -217,14 +217,14 @@ public class Game_Summative extends JComponent {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, WIDTH, HEIGHT);
             g.setColor(Color.WHITE);
-            g.drawString("You Lose", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+            g.drawString("You Lose", (WIDTH / 2) - 150, HEIGHT/2);
         }
         //if the player destroys all the blocks, display a screen with the words "you win" in white bigger font
         if (allGrayGone && allYellowGone && allRedGone) {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, WIDTH, HEIGHT);
             g.setColor(Color.WHITE);
-            g.drawString("You Win!", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+            g.drawString("You Win!", (WIDTH / 2) - 150, HEIGHT/2);
         }
         // GAME DRAWING ENDS HERE
     }
