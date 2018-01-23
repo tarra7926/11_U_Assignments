@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Game;
 
 import java.awt.Dimension;
@@ -18,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 /**
- *
+ * A game where you reflect a ball of a paddle and walls in an attempt to destroy all the blocks
  * @author tarra7926
  */
 public class Game_Summative extends JComponent {
@@ -33,50 +29,85 @@ public class Game_Summative extends JComponent {
     long desiredFPS = 60;
     long desiredTime = (1000) / desiredFPS;
     // YOUR GAME VARIABLES WOULD GO HERE
+    //the integer variable for the paddle's width
     int paddleWidth = 100;
+    //the integers variable for the paddle's height
     int paddleHeight = 20;
+    //the integer variable for the space between the borders
     int borderSpace = 30;
+    //the left half of the player's paddle
     Rectangle playerPart1 = new Rectangle((WIDTH / 2) - (paddleWidth / 2), HEIGHT - 50, paddleWidth / 2, paddleHeight / 2);
+    //the right half of the player's paddle 
     Rectangle playerPart2 = new Rectangle(playerPart1.x + playerPart1.width, HEIGHT - 50, playerPart1.width, playerPart1.height);
-    
+    //the arrays for the gray, yellow, and red blocks
     Rectangle[] grayBlocks = new Rectangle[26];
     Rectangle[] yellowBlocks = new Rectangle[18];
     Rectangle[] redBlocks = new Rectangle[10];
-    
+    //the rectangles that make the borders
     Rectangle gBorderLeft = new Rectangle(borderSpace, borderSpace, 7, HEIGHT);
     Rectangle gBorderRight = new Rectangle(WIDTH - borderSpace - 1, borderSpace, 7, HEIGHT);
     Rectangle gBorderTop = new Rectangle(borderSpace, borderSpace, WIDTH - borderSpace * 2 - 1, 7);
+    //the arrays for the gray, yellow, and red blocks life
     int[] grayBlockLife = new int[grayBlocks.length];
     int[] yellowBlockLife = new int[yellowBlocks.length];
     int[] redBlockLife = new int[redBlocks.length];
+    //the integer variable for the blocks height
     int blockHeight = 25;
+    //the integer variable for the block's width
     int blockWidth = 50;
+    //the integer variable for the ball's height
     int ballHeight = 25;
+    //the integer variable for the ball's width
     int ballWidth = 25;
+    //the integer variable for the ball's starting x value
     int startBallX = (WIDTH / 2) - (ballWidth / 2);
+    //the integer variable for the ball's starting y value
     int startBallY = playerPart1.y - 100;
+    //the integer variable for the space between the blocks
     int blockSpace = 25;
-    Rectangle ball = new Rectangle((WIDTH / 2) - (ballWidth / 2), playerPart1.y - 100, ballWidth, ballHeight);
+    //the rectangle that makes the ball
+    Rectangle ball = new Rectangle(startBallX, startBallY, ballWidth, ballHeight);
+    //the integer variable for the paddle's speed
     int paddleSpeed = 12;
+    //the integer variable for the ball's speed
     int ballSpeed = 6;
+    //the integer variable for the ball's x direction
     int ballXDirection = 0;
+    //the integer variable for the ball's Y direction
     int ballYDirection = 0;
+    //the integer variable for the lives of the player
     int lives = 3;
+    //the boolean variable for when the player is moving left
     boolean playerLeft = false;
+    //the boolean variable for when the player is moving right
     boolean playerRight = false;
+    //the boolean variable for when the player is pressing the enter key
     boolean enter = false;
+    //the boolean variable for when all yellow blocks have full life
     boolean yellowBlockFullLife = true;
+    //the boolean variable for when all red blocks have full life
     boolean redBlockFullLife = true;
+    //the boolean variable for when all gray blocks have been destroyed
     boolean allGrayGone = false;
+    //the boolean variable for when all yellow blocks have been destroyed
     boolean allYellowGone = false;
+    //the boolean variable for when all red blocks have been destroyed
     boolean allRedGone = false;
+    //the integer variable for the amount of gray blocks that have dissapeared
     int grayCounter = 0;
+    //the integer variable for the amount of yellow blocks that have dissapeared
     int yellowCounter = 0;
+    //the integer variable for the amount of red blocks that have dissapeared
     int redCounter = 0;
+    //a bigger sized Swis721 BlkOul BT font
     Font biggerFont = new Font("Swis721 BlkOul BT", Font.BOLD, 60);
+    //a normal sized Swis721 BlkOul BT font
     Font font = new Font("Swis721 BlkOul BT", Font.BOLD, 42);
+    //a smaller sized Swis721 BlkOul BT font
     Font smallerFont = new Font("Swis721 BlkOul BT", Font.BOLD, 22);
+    //a new red color
     Color candyRed = new Color(217, 0, 101);
+    //a new neon blue color
     Color skyBlue = new Color(72, 231, 236);
     // GAME VARIABLES END HERE   
 
@@ -116,16 +147,18 @@ public class Game_Summative extends JComponent {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         // GAME DRAWING GOES HERE
-
-        
-            g.setColor(Color.BLACK);
+        //set the drawing color to black
+        g.setColor(Color.BLACK);
+        //make the background black
         g.fillRect(0, 0, WIDTH, HEIGHT);
+        //draw all gray blocks in gray
         for (int i = 0; i < grayBlocks.length; i++) {
             g.setColor(Color.GRAY);
             if (grayBlocks[i] != null) {
                 g.fillRect(grayBlocks[i].x, grayBlocks[i].y, grayBlocks[i].width, grayBlocks[i].height);
             }
         }
+        //draw all yellow blocks in yellow or gray depending on how much health they have
         for (int i = 0; i < yellowBlocks.length; i++) {
             g.setColor(Color.YELLOW);
             if (yellowBlockLife[i] == 1) {
@@ -136,6 +169,7 @@ public class Game_Summative extends JComponent {
                 g.fillRect(yellowBlocks[i].x, yellowBlocks[i].y, yellowBlocks[i].width, yellowBlocks[i].height);
             }
         }
+        //draw all red blocks in red, yellow, or gray depending on how much health they have
         for (int i = 0; i < redBlocks.length; i++) {
             g.setColor(candyRed);
             if (redBlockLife[i] == 2) {
@@ -148,6 +182,7 @@ public class Game_Summative extends JComponent {
                 g.fillRect(redBlocks[i].x, redBlocks[i].y, redBlocks[i].width, redBlocks[i].height);
             }
         }
+        //if the ball is not moving in the Y direction write "Block" and"Breaker" in white, bigger font and "Press ENTER to Start" in white normal font
         if (ballYDirection == 0) {
             g.setColor(Color.WHITE);
             g.setFont(biggerFont);
@@ -155,33 +190,41 @@ public class Game_Summative extends JComponent {
             g.drawString("Breaker", (WIDTH / 2) - 134, 250);
             g.setFont(font);
             g.drawString("Press ENTER to Start", (WIDTH / 2) - 250, HEIGHT / 2 + 100);
+            //if the player is pressing down the enter key change the ball's Y direction to 1
             if (enter) {
                 ballYDirection = 1;
             }
         }
+        //set the font to the smaller font
         g.setFont(smallerFont);
+        //set the draw color to skyBlue
         g.setColor(skyBlue);
+        //write lives left int the top right corner of the screen
         g.drawString("Lives Left: " + lives, WIDTH - 180, 23);
+        //draw the player
         g.fillRect(playerPart1.x, playerPart1.y, playerPart1.width, playerPart1.height);
         g.fillRect(playerPart2.x, playerPart2.y, playerPart2.width, playerPart2.height);
+        //draw the ball
         g.fillRect(ball.x, ball.y, ball.width, ball.height);
+        //draw the borders
         g.fillRect(gBorderLeft.x, gBorderLeft.y, gBorderLeft.width, gBorderLeft.height);
         g.fillRect(gBorderRight.x, gBorderRight.y, gBorderRight.width, gBorderRight.height);
         g.fillRect(gBorderTop.x, gBorderTop.y, gBorderTop.width, gBorderTop.height);
-        
-        if(lives<=0){
+        //set the font to the bigger font
         g.setFont(biggerFont);
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-        g.setColor(Color.WHITE);
-        g.drawString("You Lose", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+        //if the player loses all their lives, display a screen with words "you lose" in white, bigger font
+        if (lives <= 0) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, WIDTH, HEIGHT);
+            g.setColor(Color.WHITE);
+            g.drawString("You Lose", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
         }
-        if(allGrayGone){
-        g.setFont(biggerFont);
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-        g.setColor(Color.WHITE);
-        g.drawString("You Win!", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
+        //if the player destroys all the blocks, display a screen with the words "you win" in white bigger font
+        if (allGrayGone && allYellowGone && allRedGone) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, WIDTH, HEIGHT);
+            g.setColor(Color.WHITE);
+            g.drawString("You Win!", (WIDTH / 2) - 210, HEIGHT / 2 + 100);
         }
         // GAME DRAWING ENDS HERE
     }
@@ -190,20 +233,21 @@ public class Game_Summative extends JComponent {
     // This is run before the game loop begins!
     public void preSetup() {
         //Any of your pre setup before the loop starts should go here
+        //define all of the gray blocks
         grayBlocks[0] = new Rectangle((WIDTH / 2) - (blockWidth / 2), (HEIGHT / 2) - (blockHeight / 2) + 25, blockWidth, blockHeight);
         grayBlocks[1] = new Rectangle(grayBlocks[0].x - blockWidth - blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
         grayBlocks[2] = new Rectangle(grayBlocks[0].x + blockWidth + blockSpace, grayBlocks[0].y, blockWidth, blockHeight);
-        grayBlocks[3] = new Rectangle(grayBlocks[0].x - (blockWidth*2) - (blockSpace*2), grayBlocks[0].y, blockWidth, blockHeight);
-        grayBlocks[4] = new Rectangle(grayBlocks[0].x - (blockWidth*3) - (blockSpace*3), grayBlocks[0].y, blockWidth, blockHeight);
-        grayBlocks[5] = new Rectangle(grayBlocks[0].x - (blockWidth*4) - (blockSpace*4), grayBlocks[0].y, blockWidth, blockHeight);
-        grayBlocks[6] = new Rectangle(grayBlocks[0].x + blockWidth*2 + blockSpace*2, grayBlocks[0].y, blockWidth, blockHeight);
-        grayBlocks[7] = new Rectangle(grayBlocks[0].x + blockWidth*3 + blockSpace*3, grayBlocks[0].y, blockWidth, blockHeight);
-        grayBlocks[8] = new Rectangle(grayBlocks[0].x + blockWidth*4 + blockSpace*4, grayBlocks[0].y, blockWidth, blockHeight);
-        grayBlocks[9] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*2, blockWidth, blockHeight);
-        grayBlocks[10] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*4, blockWidth, blockHeight);
-        grayBlocks[11] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*6, blockWidth, blockHeight);
-        grayBlocks[12] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*8, blockWidth, blockHeight);
-        grayBlocks[13] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace*10, blockWidth, blockHeight);
+        grayBlocks[3] = new Rectangle(grayBlocks[0].x - (blockWidth * 2) - (blockSpace * 2), grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[4] = new Rectangle(grayBlocks[0].x - (blockWidth * 3) - (blockSpace * 3), grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[5] = new Rectangle(grayBlocks[0].x - (blockWidth * 4) - (blockSpace * 4), grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[6] = new Rectangle(grayBlocks[0].x + blockWidth * 2 + blockSpace * 2, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[7] = new Rectangle(grayBlocks[0].x + blockWidth * 3 + blockSpace * 3, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[8] = new Rectangle(grayBlocks[0].x + blockWidth * 4 + blockSpace * 4, grayBlocks[0].y, blockWidth, blockHeight);
+        grayBlocks[9] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace * 2, blockWidth, blockHeight);
+        grayBlocks[10] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace * 4, blockWidth, blockHeight);
+        grayBlocks[11] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace * 6, blockWidth, blockHeight);
+        grayBlocks[12] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace * 8, blockWidth, blockHeight);
+        grayBlocks[13] = new Rectangle(grayBlocks[8].x, grayBlocks[0].y - blockSpace * 10, blockWidth, blockHeight);
         grayBlocks[14] = new Rectangle(grayBlocks[7].x, grayBlocks[13].y, blockWidth, blockHeight);
         grayBlocks[15] = new Rectangle(grayBlocks[6].x, grayBlocks[13].y, blockWidth, blockHeight);
         grayBlocks[16] = new Rectangle(grayBlocks[2].x, grayBlocks[13].y, blockWidth, blockHeight);
@@ -216,6 +260,7 @@ public class Game_Summative extends JComponent {
         grayBlocks[23] = new Rectangle(grayBlocks[5].x, grayBlocks[11].y, blockWidth, blockHeight);
         grayBlocks[24] = new Rectangle(grayBlocks[5].x, grayBlocks[10].y, blockWidth, blockHeight);
         grayBlocks[25] = new Rectangle(grayBlocks[5].x, grayBlocks[9].y, blockWidth, blockHeight);
+        //define all of the yellow blocks
         yellowBlocks[0] = new Rectangle(grayBlocks[4].x, grayBlocks[9].y, blockWidth, blockHeight);
         yellowBlocks[1] = new Rectangle(grayBlocks[4].x, grayBlocks[10].y, blockWidth, blockHeight);
         yellowBlocks[2] = new Rectangle(grayBlocks[4].x, grayBlocks[11].y, blockWidth, blockHeight);
@@ -234,6 +279,7 @@ public class Game_Summative extends JComponent {
         yellowBlocks[15] = new Rectangle(grayBlocks[0].x, grayBlocks[9].y, blockWidth, blockHeight);
         yellowBlocks[16] = new Rectangle(grayBlocks[2].x, grayBlocks[9].y, blockWidth, blockHeight);
         yellowBlocks[17] = new Rectangle(grayBlocks[6].x, grayBlocks[9].y, blockWidth, blockHeight);
+        //define all of the red blocks
         redBlocks[0] = new Rectangle(grayBlocks[6].x, grayBlocks[11].y, blockWidth, blockHeight);
         redBlocks[1] = new Rectangle(grayBlocks[3].x, grayBlocks[11].y, blockWidth, blockHeight);
         redBlocks[2] = new Rectangle(grayBlocks[2].x, grayBlocks[11].y, blockWidth, blockHeight);
@@ -244,7 +290,7 @@ public class Game_Summative extends JComponent {
         redBlocks[7] = new Rectangle(grayBlocks[2].x, grayBlocks[10].y, blockWidth, blockHeight);
         redBlocks[8] = new Rectangle(grayBlocks[1].x, grayBlocks[10].y, blockWidth, blockHeight);
         redBlocks[9] = new Rectangle(grayBlocks[0].x, grayBlocks[10].y, blockWidth, blockHeight);
-    
+
     }
 
     // The main game loop
@@ -266,6 +312,7 @@ public class Game_Summative extends JComponent {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
+            //if the ball exceeds the height have the ball go back to its start position and have it lose a life
             if (ball.y > HEIGHT) {
                 ball.x = startBallX;
                 ball.y = startBallY;
@@ -274,33 +321,45 @@ public class Game_Summative extends JComponent {
                 lives = lives - 1;
 
             }
-
+            //set the life points of the gray blocks to 1
             for (int i = 0; i < grayBlocks.length; i++) {
                 grayBlockLife[i] = 1;
             }
+            //set the life points of the yellow blocks tp 2
             for (int i = 0; i < yellowBlocks.length; i++) {
                 if (yellowBlockFullLife) {
                     yellowBlockLife[i] = 2;
                 }
             }
+            //set the life points of the red blocks to 3
             for (int i = 0; i < redBlocks.length; i++) {
                 if (redBlockFullLife) {
                     redBlockLife[i] = 3;
                 }
             }
+            //have the balls x and y value equal its direction times the ball's speed
             ball.x = ball.x + ballXDirection * ballSpeed;
             ball.y = ball.y + ballYDirection * ballSpeed;
+            //if the ball exceeds the top border change the ball's Y direction
             if (ball.y < gBorderTop.y + gBorderTop.height) {
                 ballYDirection = ballYDirection * -1;
             }
+            //if the ball exceeds the left or right border change the ball's X direction
             if ((ball.x + ball.width > gBorderRight.x) || ball.x < gBorderLeft.x + gBorderLeft.width) {
                 ballXDirection = ballXDirection * -1;
             }
+            //if the ball intersects the left half of the paddle make the ball go towards the top left of the screen
             if (ball.intersects(playerPart1)) {
                 ballXDirection = -1;
                 ballYDirection = -1;
             }
-
+            //if the ball intersects the right half of the paddle make the ball go towards the top right of the screen
+            if (ball.intersects(playerPart2)) {
+                ballXDirection = 1;
+                ballYDirection = -1;
+            }
+            //if the ball intersects with the left or right side of the gray block change the X direction, likewise, if it hits the top or bottom
+            //of the gray block change the Y direction, minus 1 life point, and delete the block depending on the amount of life points it has      //of the gray block change the Y direction
             for (int i = 0; i < grayBlocks.length; i++) {
                 if (ball.intersects(grayBlocks[i])) {
                     int cHeight = Math.min(grayBlocks[i].y + grayBlocks[i].height, ball.y + ball.height) - Math.max(grayBlocks[i].y, ball.y);
@@ -319,6 +378,8 @@ public class Game_Summative extends JComponent {
                     }
                 }
             }
+            //if the ball intersects with the left or right side of the yellow block change the X direction, likewise, if it hits the top or bottom
+            //of the yellow block change the Y direction, minus 1 life point, and delete the block depending on the amount of life points it has
             for (int i = 0; i < yellowBlocks.length; i++) {
                 if (ball.intersects(yellowBlocks[i])) {
                     int cHeight = Math.min(yellowBlocks[i].y + yellowBlocks[i].height, ball.y + ball.height) - Math.max(yellowBlocks[i].y, ball.y);
@@ -339,6 +400,8 @@ public class Game_Summative extends JComponent {
                     }
                 }
             }
+            //if the ball intersects with the left or right side of the red block change the X direction, likewise, if it hits the top or bottom
+            //of the red block change the Y direction, minus 1 life point, and delete the block depending on the amount of life points it has
             for (int i = 0; i < redBlocks.length; i++) {
                 if (ball.intersects(redBlocks[i])) {
                     int cHeight = Math.min(redBlocks[i].y + redBlocks[i].height, ball.y + ball.height) - Math.max(redBlocks[i].y, ball.y);
@@ -356,51 +419,51 @@ public class Game_Summative extends JComponent {
                     }
                 }
             }
-            for(int i = 0; i < grayBlocks.length; i++){
-                if(grayBlocks[i].width == 0){
+            //see if all the gray blocks are destroyed
+            for (int i = 0; i < grayBlocks.length; i++) {
+                if (grayBlocks[i].width == 0) {
                     grayCounter = grayCounter + 1;
-                }else{
+                } else {
                     grayCounter = 0;
+
                 }
-                if(grayCounter == grayBlocks.length){
+                if (grayCounter == grayBlocks.length) {
                     allGrayGone = true;
                     break;
                 }
-                
             }
-            for(int i = 0; i < yellowBlocks.length; i++){
-                if(yellowBlocks[i].width == 0){
+            //see if all the yellow blocks are destroyed
+            for (int i = 0; i < yellowBlocks.length; i++) {
+                if (yellowBlocks[i].width == 0) {
                     yellowCounter = yellowCounter + 1;
-                }else{
+                } else {
                     yellowCounter = 0;
                 }
-                if(yellowCounter == yellowBlocks.length){
+                if (yellowCounter == yellowBlocks.length) {
                     allYellowGone = true;
                     break;
                 }
-                
+
             }
-            for(int i = 0; i < redBlocks.length; i++){
-                if(redBlocks[i].width == 0){
+            //see if all the red blocks are destroyed
+            for (int i = 0; i < redBlocks.length; i++) {
+                if (redBlocks[i].width == 0) {
                     redCounter = redCounter + 1;
-                }else{
+                } else {
                     redCounter = 0;
                 }
-                if(redCounter == redBlocks.length){
+                if (redCounter == redBlocks.length) {
                     allRedGone = true;
                     break;
                 }
-                
-            }
 
-            if (ball.intersects(playerPart2)) {
-                ballXDirection = 1;
-                ballYDirection = -1;
             }
-            if (playerLeft && playerPart1.x > gBorderLeft.x + gBorderLeft.width) {
+            //if the player is holding the left arrow key mvoe the paddle right unless there is a border in the way
+            if (playerLeft && playerPart1.x > gBorderLeft.x + gBorderLeft.width * 2) {
                 playerPart1.x = playerPart1.x - paddleSpeed;
                 playerPart2.x = playerPart2.x - paddleSpeed;
             }
+            //if the player is holding the right arrow key movee the paddle right unless there is a border in the way
             if (playerRight && playerPart1.x < (gBorderRight.x - paddleWidth)) {
                 playerPart1.x = playerPart1.x + paddleSpeed;
                 playerPart2.x = playerPart2.x + paddleSpeed;
@@ -456,7 +519,9 @@ public class Game_Summative extends JComponent {
 
         @Override
         public void keyPressed(KeyEvent e) {
+            //get the key code
             int key = e.getKeyCode();
+            //see if the left, right, or enter keys are being pressed
             if (key == KeyEvent.VK_LEFT) {
                 playerLeft = true;
             } else if (key == KeyEvent.VK_RIGHT) {
@@ -470,7 +535,9 @@ public class Game_Summative extends JComponent {
         // if a key has been released
         @Override
         public void keyReleased(KeyEvent e) {
+            //get the key code
             int key = e.getKeyCode();
+            //see if the left, right, or enter keys are being released
             if (key == KeyEvent.VK_LEFT) {
                 playerLeft = false;
             } else if (key == KeyEvent.VK_RIGHT) {
